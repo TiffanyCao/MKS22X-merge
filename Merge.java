@@ -15,25 +15,31 @@ public class Merge{
           left[i - lo] = data[i];
         }else right[i - (left.length + lo)] = data[i];
       }
-      System.out.println(print(left));
-      System.out.println(print(right));
+      //System.out.println(print(left));
+      //System.out.println(print(right));
       mergesortWrap(data, lo, lo + left.length - 1);
       mergesortWrap(data, lo + left.length, hi);
+      mergesortH(data, left, right, lo, hi);
     }
     /*else{
       System.out.println("done");
     }*/
   }
 
-  public static void mergesortH(int[] data, int[] temp1, int[] temp2, int lo, int hi){
-    if(temp1.length == 1 && temp2.length == 1){
-      if(temp1[0] >= temp2[0]){
-        int[] result = {temp2[0], temp1[0]};
-      }else{
-        int[] result = {temp1[0], temp2[0]};
+  public static void mergesortH(int[] data, int[] left, int[] right, int lo, int hi){
+    int leftIndex = 0;
+    int rightIndex = 0;
+    int index = lo;
+    while(leftIndex < left.length && rightIndex < right.length){ //when the function hasn't finished with either half
+      if(left[leftIndex] < right[rightIndex]){ //if the value at left is smaller than the value at right..
+        data[index] = left[leftIndex]; //the array picks the value at left
+        leftIndex++; //the index of left increases once the value at the previous index has been considered
+      }else{ //if the value at right is smaller than the value at left..
+        data[index] = right[rightIndex]; //the array picks the value at right
+        rightIndex++; //the index of right increases once the value at the previous index has been considered
       }
+      index++; //once a value has been picked, the index increases
     }
-    //mergesortH(data, )
   }
 
   /**A method that prints out the array
@@ -52,8 +58,9 @@ public class Merge{
   }
 
   public static void main(String[] args){
-    int[] test = {0, 1, 2, 3, 4, 5, 6};
+    int[] test = {6, 5, 4, 3, 2, 1, 0};
     mergesort(test);
+    System.out.println(print(test));
   }
 
 }
