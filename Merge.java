@@ -1,16 +1,28 @@
 public class Merge{
   /*sort the array from least to greatest value. This is a wrapper function*/
   public static void mergesort(int[]data){
-    int[] temp1 = new int[data.length / 2];
-    int[] temp2 = new int[data.length - (data.length / 2)];
-    for(int i = 0; i < data.length; i++){
-      if(i < temp1.length){
-        temp1[i] = data[i];
-      }else temp2[i - (temp2.length - 1)] = data[i];
+    mergesortWrap(data, 0, data.length - 1);
+  }
+
+  public static void mergesortWrap(int[] data, int lo, int hi){
+    if(lo < hi){
+      //System.out.println(lo);
+      //System.out.println(hi);
+      int[] left = new int[(((hi - lo) + 1) / 2)];
+      int[] right = new int[((hi - lo) + 1) - left.length];
+      for(int i = lo; i <= hi; i++){
+        if(i < (lo + left.length)){
+          left[i - lo] = data[i];
+        }else right[i - (left.length + lo)] = data[i];
+      }
+      System.out.println(print(left));
+      System.out.println(print(right));
+      mergesortWrap(data, lo, lo + left.length - 1);
+      mergesortWrap(data, lo + left.length, hi);
     }
-    System.out.println(print(temp1));
-    System.out.println(print(temp2));
-    //mergesortH(data, temp1, temp2, 0, data.length);
+    /*else{
+      System.out.println("done");
+    }*/
   }
 
   public static void mergesortH(int[] data, int[] temp1, int[] temp2, int lo, int hi){
