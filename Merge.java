@@ -1,5 +1,5 @@
 public class Merge{
-  
+
   /*sort the array from least to greatest value. This is a wrapper function*/
   public static void mergesort(int[]data){
     mergesortWrap(data, 0, data.length - 1);
@@ -20,6 +20,11 @@ public class Merge{
       //System.out.println(print(right));
       mergesortWrap(data, lo, lo + left.length - 1);
       mergesortWrap(data, lo + left.length, hi);
+      for(int i = lo; i <= hi; i++){
+        if(i < (lo + left.length)){
+          left[i - lo] = data[i];
+        }else right[i - (left.length + lo)] = data[i];
+      }
       mergesortH(data, left, right, lo, hi);
     }
     /*else{
@@ -31,7 +36,30 @@ public class Merge{
     int leftIndex = 0;
     int rightIndex = 0;
     int index = lo;
+    System.out.println(lo + " " + hi + " li " + leftIndex + " ri " + rightIndex);
+    System.out.println(print(left));
+    System.out.println(print(right));
     while(leftIndex < left.length && rightIndex < right.length){ //when the function hasn't finished with either half
+      /*boolean smallestL = true;
+      for(int i = rightIndex; i < right.length; i++){
+        if(left[leftIndex] > right[rightIndex]) smallestL = false;
+      }
+      if(smallestL){
+        data[index] = left[leftIndex];
+        leftIndex++;
+        index++;
+      }
+      if(!smallestL){
+        boolean smallestR = true;
+        for(int y = leftIndex; y < left.length; y++){
+          if(right[rightIndex] > left[leftIndex]) smallestR = false;
+        }
+        if(smallestR){
+          data[index] = right[rightIndex];
+          rightIndex++;
+          index++;
+        }
+      }*/
       if(left[leftIndex] < right[rightIndex]){ //if the value at left is smaller than the value at right..
         data[index] = left[leftIndex]; //the array picks the value at left
         leftIndex++; //the index of left increases once the value at the previous index has been considered
@@ -40,7 +68,23 @@ public class Merge{
         rightIndex++; //the index of right increases once the value at the previous index has been considered
       }
       index++; //once a value has been picked, the index increases
+      System.out.println(print(data));
     }
+    if(leftIndex < left.length){
+      for(int i = leftIndex; i < left.length; i++){
+        data[index] = left[i];
+        leftIndex++;
+        index++;
+      }
+    }
+    if(rightIndex < right.length){
+      for(int i = rightIndex; i < right.length; i++){
+        data[index] = right[i];
+        rightIndex++;
+        index++;
+      }
+    }
+    System.out.println(print(data));
   }
 
   /**A method that prints out the array
@@ -62,6 +106,13 @@ public class Merge{
     int[] test = {6, 5, 4, 3, 2, 1, 0};
     mergesort(test);
     System.out.println(print(test));
+    /*int[] test2 = {0, 2, 4, 1, 3, 6, 8};
+    mergesort(test2);
+    System.out.println(print(test2));
+    int[] test3 = {8, 4, 6, 32, 24, 44, 20, 443, 122};
+    mergesort(test3);
+    System.out.println(print(test3));
+    */
   }
 
 }
