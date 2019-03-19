@@ -2,7 +2,7 @@ public class Merge{
 
   /*sort the array from least to greatest value. This is a wrapper function*/
   public static void mergesort(int[]data){
-    mergesortWrap(data, 0, data.length - 1);
+    mergesortWrap(data, 0, data.length - 1); //call to helper function
   }
 
   public static void mergesortWrap(int[] data, int lo, int hi){
@@ -11,11 +11,12 @@ public class Merge{
       //System.out.println(hi);
       int[] left = new int[(((hi - lo) + 1) / 2)];
       int[] right = new int[((hi - lo) + 1) - left.length];
-      for(int i = lo; i <= hi; i++){
+      /*for(int i = lo; i <= hi; i++){
         if(i < (lo + left.length)){
           left[i - lo] = data[i];
         }else right[i - (left.length + lo)] = data[i];
       }
+      */
       //System.out.println(print(left));
       //System.out.println(print(right));
       mergesortWrap(data, lo, lo + left.length - 1);
@@ -36,9 +37,9 @@ public class Merge{
     int leftIndex = 0;
     int rightIndex = 0;
     int index = lo;
-    System.out.println(lo + " " + hi + " li " + leftIndex + " ri " + rightIndex);
-    System.out.println(print(left));
-    System.out.println(print(right));
+    //System.out.println(lo + " " + hi + " li " + leftIndex + " ri " + rightIndex);
+    //System.out.println(print(left));
+    //System.out.println(print(right));
     while(leftIndex < left.length && rightIndex < right.length){ //when the function hasn't finished with either half
       /*boolean smallestL = true;
       for(int i = rightIndex; i < right.length; i++){
@@ -68,23 +69,24 @@ public class Merge{
         rightIndex++; //the index of right increases once the value at the previous index has been considered
       }
       index++; //once a value has been picked, the index increases
-      System.out.println(print(data));
+      //System.out.println(print(data));
+
     }
-    if(leftIndex < left.length){
-      for(int i = leftIndex; i < left.length; i++){
+    if(leftIndex < left.length){ //if the left array has values left over...
+      for(int i = leftIndex; i < left.length; i++){ //copy them back into data
         data[index] = left[i];
         leftIndex++;
         index++;
       }
     }
-    if(rightIndex < right.length){
-      for(int i = rightIndex; i < right.length; i++){
+    if(rightIndex < right.length){ //if the right array has values left over...
+      for(int i = rightIndex; i < right.length; i++){ //copy back them back into data
         data[index] = right[i];
         rightIndex++;
         index++;
       }
     }
-    System.out.println(print(data));
+    //System.out.println(print(data));
   }
 
   /**A method that prints out the array
@@ -106,13 +108,13 @@ public class Merge{
     int[] test = {6, 5, 4, 3, 2, 1, 0};
     mergesort(test);
     System.out.println(print(test));
-    /*int[] test2 = {0, 2, 4, 1, 3, 6, 8};
+    int[] test2 = {0, 2, 4, 1, 3, 6, 8};
     mergesort(test2);
     System.out.println(print(test2));
     int[] test3 = {8, 4, 6, 32, 24, 44, 20, 443, 122};
     mergesort(test3);
     System.out.println(print(test3));
-    */
+
   }
 
 }
