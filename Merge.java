@@ -2,7 +2,7 @@ public class Merge{
 
   /*sort the array from least to greatest value. This is a wrapper function*/
   public static void mergesort(int[]data){
-    mergesortWrap(data, 0, data.length - 1); //call to helper function
+    mergesortInsertion(data, 0, data.length - 1); //call to helper function
   }
 
   public static void mergesortWrap(int[] data, int lo, int hi){
@@ -33,6 +33,41 @@ public class Merge{
     }*/
   }
 
+  public static void mergesortInsertion(int[] data, int lo, int hi){
+    if((hi - lo) > 6){
+      System.out.println(lo);
+      System.out.println(hi);
+      int[] left = new int[(((hi - lo) + 1) / 2)];
+      int[] right = new int[((hi - lo) + 1) - left.length];
+      /*for(int i = lo; i <= hi; i++){
+        if(i < (lo + left.length)){
+          left[i - lo] = data[i];
+        }else right[i - (left.length + lo)] = data[i];
+      }
+      */
+      //System.out.println(print(left));
+      //System.out.println(print(right));
+      mergesortWrap(data, lo, lo + left.length - 1);
+      mergesortWrap(data, lo + left.length, hi);
+      for(int i = lo; i <= hi; i++){
+        if(i < (lo + left.length)){
+          left[i - lo] = data[i];
+        }else right[i - (left.length + lo)] = data[i];
+      }
+      mergesortH(data, left, right, lo, hi);
+    }else{
+      int[] left = new int[(((hi - lo) + 1) / 2)];
+      int[] right = new int[((hi - lo) + 1) - left.length];
+      for(int i = lo; i <= hi; i++){
+        if(i < (lo + left.length)){
+          left[i - lo] = data[i];
+        }else right[i - (left.length + lo)] = data[i];
+      }
+      insertionsort(data, lo, lo + left.length - 1);
+      insertionsort(data, lo + left.length, hi);
+
+    }
+  }
   public static void mergesortH(int[] data, int[] left, int[] right, int lo, int hi){
     int leftIndex = 0;
     int rightIndex = 0;
@@ -106,9 +141,12 @@ public class Merge{
 
   public static void insertionsort(int[] data, int lo, int hi){
     for(int i = lo + 1; i <= hi; i++){ //insertion within the bounds of lo and hi
+      //System.out.println(i);
+      //System.out.println(lo);
       int x;
       int temp = data[i]; //store the value to be compared
-      for(x = i - 1; (data[x] > temp) && (x >= lo); x--){ //if the values before it are greater than the value being compared...
+      for(x = i - 1; (x >= lo) && (data[x] > temp); x--){ //if the values before it are greater than the value being compared...
+        //System.out.println(x);
         data[x+1] = data[x]; //shift the values to the right
       }
       data[x+1] = temp; //when the value is at the correct index, set it down
