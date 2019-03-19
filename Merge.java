@@ -104,16 +104,39 @@ public class Merge{
    return result;
   }
 
+  public static void insertionsort(int[] data, int lo, int hi){
+    for(int i = lo + 1; i <= hi; i++){ //insertion within the bounds of lo and hi
+      int x;
+      int temp = data[i]; //store the value to be compared
+      for(x = i - 1; (data[x] > temp) && (x >= lo); x--){ //if the values before it are greater than the value being compared...
+        data[x+1] = data[x]; //shift the values to the right
+      }
+      data[x+1] = temp; //when the value is at the correct index, set it down
+    }
+  }
+
   public static void main(String[] args){
     int[] test = {6, 5, 4, 3, 2, 1, 0};
     mergesort(test);
-    System.out.println(print(test));
+    System.out.println(print(test) + "\n");
     int[] test2 = {0, 2, 4, 1, 3, 6, 8};
     mergesort(test2);
-    System.out.println(print(test2));
+    System.out.println(print(test2) + "\n");
     int[] test3 = {8, 4, 6, 32, 24, 44, 20, 443, 122};
     mergesort(test3);
-    System.out.println(print(test3));
+    System.out.println(print(test3) + "\n");
+
+    int[] test4 = new int[100];
+    for(int i = 0; i < 100; i++){
+      test4[i] = 99-i;
+    }
+    System.out.println(print(test4) + "\n");
+    mergesort(test4);
+    System.out.println(print(test4) + "\n");
+
+    int[] test5 = {1, 2, 7, 6, 5, 4, 3, 8};
+    insertionsort(test5, 2, 6);
+    System.out.println(print(test5) + "\n");
 
   }
 
