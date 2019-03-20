@@ -1,15 +1,24 @@
 public class Merge{
 
-  /*sort the array from least to greatest value. This is a wrapper function*/
+  /**A method that sorts the array from least to greatest value.
+  *This is a wrapper function
+  *@param int[] data
+  */
   public static void mergesort(int[]data){
     mergesortInsertion(data, 0, data.length - 1); //call to helper function
   }
 
+  /**A method that divides an array in half continuously until they are all subarrays of length 1
+  *It sorts each subarray through a helper function
+  *@param int[] data
+  *@param int lo is the lower index of the range to be sorted, inclusive
+  *@param int hi is the upper index of the range to be sorted, inclusive
+  */
   public static void mergesortWrap(int[] data, int lo, int hi){
-    if(lo < hi){
+    if(lo < hi){ //if the length of the subarray is not 1 yet
       //System.out.println(lo);
       //System.out.println(hi);
-      int[] left = new int[(((hi - lo) + 1) / 2)];
+      int[] left = new int[(((hi - lo) + 1) / 2)]; //divide into two subarrays
       int[] right = new int[((hi - lo) + 1) - left.length];
       /*for(int i = lo; i <= hi; i++){
         if(i < (lo + left.length)){
@@ -19,25 +28,30 @@ public class Merge{
       */
       //System.out.println(print(left));
       //System.out.println(print(right));
-      mergesortWrap(data, lo, lo + left.length - 1);
+      mergesortWrap(data, lo, lo + left.length - 1); //call recursively to continue dividing
       mergesortWrap(data, lo + left.length, hi);
-      for(int i = lo; i <= hi; i++){
+      for(int i = lo; i <= hi; i++){ //fill in the subarrays with the corresponding values from the original array
         if(i < (lo + left.length)){
           left[i - lo] = data[i];
         }else right[i - (left.length + lo)] = data[i];
       }
-      mergesortH(data, left, right, lo, hi);
+      mergesortH(data, left, right, lo, hi); //call to helper function which sorts and modifies the array
     }
     /*else{
       System.out.println("done");
     }*/
   }
 
+  /**An alternative merge sort that divides an array in half continuously until it reaches a certain length, after which insertion sort is used
+  *@param int[] data
+  *@param int lo is the lower index of the range to be sorted, inclusive
+  *@param int hi is the upper index of the range to be sorted, inclusive
+  */
   public static void mergesortInsertion(int[] data, int lo, int hi){
-    if((hi - lo) > 6){
-      System.out.println(lo);
-      System.out.println(hi);
-      int[] left = new int[(((hi - lo) + 1) / 2)];
+    if((hi - lo) > 6){ //if length of the subarray is greater than 6, continue dividing
+      //System.out.println(lo);
+      //System.out.println(hi);
+      int[] left = new int[(((hi - lo) + 1) / 2)]; //divide into two subarrays
       int[] right = new int[((hi - lo) + 1) - left.length];
       /*for(int i = lo; i <= hi; i++){
         if(i < (lo + left.length)){
@@ -47,35 +61,34 @@ public class Merge{
       */
       //System.out.println(print(left));
       //System.out.println(print(right));
-      mergesortWrap(data, lo, lo + left.length - 1);
-      mergesortWrap(data, lo + left.length, hi);
-      for(int i = lo; i <= hi; i++){
+      mergesortInsertion(data, lo, lo + left.length - 1); //call recursively to continue dividing
+      mergesortInsertion(data, lo + left.length, hi);
+      for(int i = lo; i <= hi; i++){ //fill in the subarrays with the corresponding values from the original array
         if(i < (lo + left.length)){
           left[i - lo] = data[i];
         }else right[i - (left.length + lo)] = data[i];
       }
       mergesortH(data, left, right, lo, hi);
-    }else{
-      int[] left = new int[(((hi - lo) + 1) / 2)];
-      int[] right = new int[((hi - lo) + 1) - left.length];
-      for(int i = lo; i <= hi; i++){
-        if(i < (lo + left.length)){
-          left[i - lo] = data[i];
-        }else right[i - (left.length + lo)] = data[i];
-      }
-      insertionsort(data, lo, lo + left.length - 1);
-      insertionsort(data, lo + left.length, hi);
-
+    }else{ //if the length of the subarray is less than 6
+      insertionsort(data, lo, hi); //use insertion sort on the array within the given range
     }
   }
+
+  /**A method that sorts a subarray and modifies the original array accordingly
+  *@param int[] data
+  *@param int[] left is the left subarray
+  *@param int[] right is the right subarray
+  *@param int lo is the starting index of the left array in relation to the original array
+  *@param int hi is the ending index of the right array in relation to the original array
+  */
   public static void mergesortH(int[] data, int[] left, int[] right, int lo, int hi){
-    int leftIndex = 0;
+    int leftIndex = 0; //keep track of indexes of left, right, and original arrays
     int rightIndex = 0;
     int index = lo;
     //System.out.println(lo + " " + hi + " li " + leftIndex + " ri " + rightIndex);
     //System.out.println(print(left));
     //System.out.println(print(right));
-    while(leftIndex < left.length && rightIndex < right.length){ //when the function hasn't finished with either half
+    while(leftIndex < left.length && rightIndex < right.length){ //when the function hasn't finished checking with either half
       /*boolean smallestL = true;
       for(int i = rightIndex; i < right.length; i++){
         if(left[leftIndex] > right[rightIndex]) smallestL = false;
@@ -139,6 +152,11 @@ public class Merge{
    return result;
   }
 
+  /**A method of insertion sort that only sorts within the given range of an array
+  *@param int[] data
+  *@param int lo the lower index of the range to be sorted, inclusive
+  *@param int hi the upper index of the range to be sorted, inclusive
+  */
   public static void insertionsort(int[] data, int lo, int hi){
     for(int i = lo + 1; i <= hi; i++){ //insertion within the bounds of lo and hi
       //System.out.println(i);
