@@ -88,7 +88,7 @@ public class Merge{
     //System.out.println(lo + " " + hi + " li " + leftIndex + " ri " + rightIndex);
     //System.out.println(print(left));
     //System.out.println(print(right));
-    while(leftIndex < left.length && rightIndex < right.length){ //when the function hasn't finished checking with either half
+    while(leftIndex < left.length && rightIndex < right.length){ //when the function hasn't finished testing with either half
       /*boolean smallestL = true;
       for(int i = rightIndex; i < right.length; i++){
         if(left[leftIndex] > right[rightIndex]) smallestL = false;
