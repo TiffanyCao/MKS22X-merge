@@ -48,7 +48,7 @@ public class Merge{
   *@param int hi is the upper index of the range to be sorted, inclusive
   */
   public static void mergesortInsertion(int[] data, int lo, int hi){
-    if((hi - lo) > 6){ //if length of the subarray is greater than 6, continue dividing
+    if((hi - lo) > 30){ //if length of the subarray is greater than 6, continue dividing
       //System.out.println(lo);
       //System.out.println(hi);
       int[] left = new int[(((hi - lo) + 1) / 2)]; //divide into two subarrays
